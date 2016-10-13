@@ -1,0 +1,11 @@
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Release\Insomnia.exe
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Release\Insomnia.exe.config
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Release\Insomnia.exe
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Release\Insomnia.pdb
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Release\Insomnia.pdb
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Release\Insomnia.csprojResolveAssemblyReference.cache
+C:\CODE\Insomnia\Insomnia\bin\Release\Insomnia.exe.config
+C:\CODE\Insomnia\Insomnia\obj\Release\Insomnia.exe
+C:\CODE\Insomnia\Insomnia\obj\Release\Insomnia.pdb
+C:\CODE\Insomnia\Insomnia\bin\Release\Insomnia.exe
+C:\CODE\Insomnia\Insomnia\bin\Release\Insomnia.pdb

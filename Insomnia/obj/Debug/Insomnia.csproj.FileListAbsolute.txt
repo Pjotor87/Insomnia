@@ -1,0 +1,12 @@
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Debug\Insomnia.exe.config
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Debug\Insomnia.exe
+C:\CODE\NewUnsorted\Insomnia\Insomnia\bin\Debug\Insomnia.pdb
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Debug\Insomnia.exe
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Debug\Insomnia.pdb
+C:\CODE\NewUnsorted\Insomnia\Insomnia\obj\Debug\Insomnia.csprojResolveAssemblyReference.cache
+C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.exe.config
+C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.exe
+C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.pdb
+C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.exe
+C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.pdb
+C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.csprojResolveAssemblyReference.cache
