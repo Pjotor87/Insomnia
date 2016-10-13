@@ -1,7 +1,11 @@
 # Insomnia
 
-Prevents Lync from going inactive. Also prevents your windows system from going to sleep.
+Prevents your windows machine from going to sleep. Also prevents Lync from going inactive.
 
-The main grunt work of this app was made by someone else. Most of this code is refactored code from the ImWorkin.zip file found here: https://www.symantec.com/connect/downloads/readynosleepexe-prevents-screensaver-and-pc-locking
+The main grunt work of this program was made by someone else. Most of this code is refactored code from the ImWorkin.zip file found here:
+https://www.symantec.com/connect/downloads/readynosleepexe-prevents-screensaver-and-pc-locking
 
-I have changed the key being pressed when poking the system to F15, and added some extra functionality in the Interval class.
+I have changed
+- The key being pressed when poking the system to F15
+- Added some extra functionality for advanced usage (see the interval class).
+- The program runs in the background. To stop the program: Kill the process in task manager.
