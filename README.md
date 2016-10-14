@@ -8,4 +8,6 @@ https://www.symantec.com/connect/downloads/readynosleepexe-prevents-screensaver-
 I have changed
 - The key being pressed when poking the system to F15
 - Added some extra functionality for advanced usage (see the interval class).
-- The program runs in the background. To stop the program: Kill the process in task manager.
+- The program runs as a process in the background.
+
+To stop the process: Run the program again or kill the process via task manager.
