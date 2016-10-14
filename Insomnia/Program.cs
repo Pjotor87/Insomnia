@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -46,14 +47,24 @@ namespace Insomnia
 
         static void Main(string[] args)
         {
-            // Build the interval object that contains rules for this specific instance of the program.
-            Interval interval = BuildIntervalFromArgs(args);
-            // Get timeout values from system and set the timeout for this programs 
-            // poking of the device to the lowest value found.
-            interval.SetIntervalInMilliseconds(GetLowestTimeoutValueFromSystem());
-            // Disable the system from going to sleep and locking by manipulating thread execution state 
-            // and continously poking the system using simulated keypresses and/or wiggling the mouse back and forth.
-            KeepSystemAlive(interval);
+            // Get currently running Insomnia processes.
+            // Kill all of them if they exist and exit.
+            // Otherwise run the program.
+            var runningInsomniaProcesses = Process.GetProcessesByName("Insomnia");
+            if (runningInsomniaProcesses.Length > 0)
+                foreach (var runningInsomniaProcess in runningInsomniaProcesses)
+                    runningInsomniaProcess.Kill();
+            else
+            {
+                // Build the interval object that contains rules for this specific instance of the program.
+                Interval interval = BuildIntervalFromArgs(args);
+                // Get timeout values from system and set the timeout for this programs 
+                // poking of the device to the lowest value found.
+                interval.SetIntervalInMilliseconds(GetLowestTimeoutValueFromSystem());
+                // Disable the system from going to sleep and locking by manipulating thread execution state 
+                // and continously poking the system using simulated keypresses and/or wiggling the mouse back and forth.
+                KeepSystemAlive(interval);
+            }
         }
 
         private static Interval BuildIntervalFromArgs(string[] args)

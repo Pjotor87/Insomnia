@@ -9,4 +9,3 @@ C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.pdb
 C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.pdb
-C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.csprojResolveAssemblyReference.cache
