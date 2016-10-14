@@ -63,21 +63,18 @@ namespace Insomnia
             if (args != null && args.Length >= 1)
             {
                 // Get Arguments and set properties on interval object.
-                string startDate = string.Empty;
-                string endDate = string.Empty;
-                string daysOfMonth = string.Empty;
-                string intervalInSeconds = string.Empty;
-                string pollForStopPoking = string.Empty;
                 for (int i = 0; i < args.Length; i++)
                 {
-                    string argumentIdentifier = (args[i].StartsWith("-")) ? args[i].Remove(0, 1).ToLower() : string.Empty;
-                    if (string.IsNullOrEmpty(argumentIdentifier) || argumentIdentifier.Length != 1 || args.Length == i)
+                    string argumentKey = (args[i].StartsWith("-")) ? args[i].Remove(0, 1).ToLower() : string.Empty;
+                    if (string.IsNullOrEmpty(argumentKey) || 
+                        argumentKey.Length != 1 || 
+                        args.Length == i)
                         continue;
                     else
                     {
                         string argumentValue = (args.Length >= (i + 1)) ? args[i + 1] : string.Empty;
                         if (!string.IsNullOrEmpty(argumentValue))
-                            switch (argumentIdentifier)
+                            switch (argumentKey)
                             {
                                 case "s": // Start date
                                     interval.SetStart(argumentValue);
