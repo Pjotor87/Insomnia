@@ -51,7 +51,7 @@ namespace Insomnia
             // Kill all of them if they exist and exit.
             // Otherwise run the program.
             var runningInsomniaProcesses = Process.GetProcessesByName("Insomnia");
-            if (runningInsomniaProcesses.Length > 0)
+            if (runningInsomniaProcesses.Length > 1)
                 foreach (var runningInsomniaProcess in runningInsomniaProcesses)
                     runningInsomniaProcess.Kill();
             else
