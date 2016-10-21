@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -48,22 +50,36 @@ namespace Insomnia
         static void Main(string[] args)
         {
             // Get currently running Insomnia processes.
-            // Kill all of them if they exist and exit.
-            // Otherwise run the program.
-            var runningInsomniaProcesses = Process.GetProcessesByName("Insomnia");
-            if (runningInsomniaProcesses.Length > 1)
-                foreach (var runningInsomniaProcess in runningInsomniaProcesses)
-                    runningInsomniaProcess.Kill();
-            else
+            // Kill all of them if they exist including this one.
+            // Otherwise the program continues.
+            KillInsomniaProcessesWhenMoreThanOne();
+            // Build the interval object that contains rules for this specific instance of the program.
+            Interval interval = BuildIntervalFromArgs(args);
+            // Get timeout values from system and set the timeout for this programs 
+            // poking of the device to the lowest value found.
+            interval.SetIntervalInMilliseconds(GetLowestTimeoutValueFromSystem());
+            // Disable the system from going to sleep and locking by manipulating thread execution state 
+            // and continously poking the system using simulated keypresses and/or wiggling the mouse back and forth.
+            KeepSystemAlive(interval);
+        }
+
+        private static void KillInsomniaProcessesWhenMoreThanOne()
+        {
+            // Get current process
+            Process currentProcess = Process.GetCurrentProcess();
+            // Get all other processes with the same name.
+            List<Process> runningInsomniaProcesses = new List<Process>();
+            runningInsomniaProcesses.AddRange(Process.GetProcessesByName(currentProcess.ProcessName));
+            // Parse instance started by visual studio for debugging.
+            if (currentProcess.ProcessName.EndsWith(".vshost"))
+                runningInsomniaProcesses.AddRange(Process.GetProcessesByName(Path.GetFileNameWithoutExtension(currentProcess.ProcessName)));
+            // Kill all processes when more than one are running.
+            if (runningInsomniaProcesses != null && runningInsomniaProcesses.Count > 1)
             {
-                // Build the interval object that contains rules for this specific instance of the program.
-                Interval interval = BuildIntervalFromArgs(args);
-                // Get timeout values from system and set the timeout for this programs 
-                // poking of the device to the lowest value found.
-                interval.SetIntervalInMilliseconds(GetLowestTimeoutValueFromSystem());
-                // Disable the system from going to sleep and locking by manipulating thread execution state 
-                // and continously poking the system using simulated keypresses and/or wiggling the mouse back and forth.
-                KeepSystemAlive(interval);
+                foreach (Process runningInsomniaProcess in runningInsomniaProcesses)
+                    if (runningInsomniaProcess.Id != currentProcess.Id)
+                        runningInsomniaProcess.Kill();
+                currentProcess.Kill();
             }
         }
 
