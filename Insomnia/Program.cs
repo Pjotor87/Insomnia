@@ -104,10 +104,10 @@ namespace Insomnia
                             switch (argumentKey)
                             {
                                 case "s": // Start date
-                                    interval.SetStart(argumentValue);
+                                    interval.SetDateTime(argumentValue, true);
                                     break;
                                 case "e": // End date
-                                    interval.SetEnd(argumentValue);
+                                    interval.SetDateTime(argumentValue, false);
                                     break;
                                 case "d": // Days of week
                                     interval.SetDaysOfWeek(argumentValue);

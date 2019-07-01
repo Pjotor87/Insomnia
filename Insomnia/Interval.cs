@@ -10,6 +10,15 @@ namespace Insomnia
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        private sealed class Constants
+        {
+            public static int DateTimeLength { get { return DATELENGTH + TIMELENGTH + 1; } }
+            public const int DATELENGTH = 10;
+            public const int TIMELENGTH = 8;
+            public const char DATESEPARATOR = '-';
+            public const char TIMESEPARATOR = ':';
+            public const char DATETIMESEPARATOR = ' ';
+        }
         /// <summary>
         /// Array which defines if the program should run only on specific days of the week.
         /// Ex. Set to {true,true,true,true,true,false,false} to only run on weekdays.
@@ -73,24 +82,76 @@ namespace Insomnia
 
         #region Set from args
 
-        internal void SetStart(string startDate)
+        public void SetDateTime(string dateTime, bool isStartDateNotEndDate)
         {
-            if (!string.IsNullOrEmpty(startDate) && startDate.Length == 10 && startDate.Contains("-"))
-            {
-                string[] startDateParts = startDate.Split('-');
-                if (startDateParts.Length == 3 && IsNumeric(startDateParts))
-                    this.SetStart(new DateTime(Convert.ToInt32(startDateParts[0]), Convert.ToInt32(startDateParts[1]), Convert.ToInt32(startDateParts[2])));
-            }
+            if (!string.IsNullOrEmpty(dateTime) && dateTime.Contains(Constants.DATETIMESEPARATOR.ToString()) && dateTime.Length == Constants.DateTimeLength)
+                if (isStartDateNotEndDate)
+                    this.SetStart(
+                        ParseDateTime(
+                            dateTime.Split(Constants.DATESEPARATOR)[0], 
+                            dateTime.Split(Constants.DATESEPARATOR)[1], 
+                            isStartDateNotEndDate)
+                        );
+                else
+                    this.SetEnd(
+                        ParseDateTime(
+                            dateTime.Split(Constants.DATESEPARATOR)[0], 
+                            dateTime.Split(Constants.DATESEPARATOR)[1], 
+                            isStartDateNotEndDate)
+                        );
         }
 
-        internal void SetEnd(string endDate)
+        private DateTime ParseDateTime(string date, string time, bool isStartDateNotEndDate)
         {
-            if (!string.IsNullOrEmpty(endDate) && endDate.Length == 10 && endDate.Contains("-"))
+            DateTime dateToSet = ParseDate(date, isStartDateNotEndDate);
+            DateTime timeToSet = ParseTime(time, isStartDateNotEndDate);
+
+            return new DateTime(
+                dateToSet.Year, 
+                dateToSet.Month, 
+                dateToSet.Day, 
+                timeToSet.Hour, 
+                timeToSet.Minute, 
+                timeToSet.Second
+            );
+        }
+
+        private DateTime ParseDate(string date, bool isStartDateNotEndDate)
+        {
+            DateTime dateToSet = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(date) && date.Length == Constants.DATELENGTH && date.Contains(Constants.DATESEPARATOR.ToString()))
             {
-                string[] startDateParts = endDate.Split('-');
-                if (startDateParts.Length == 3 && IsNumeric(startDateParts))
-                    this.SetStart(new DateTime(Convert.ToInt32(startDateParts[0]), Convert.ToInt32(startDateParts[1]), Convert.ToInt32(startDateParts[2])));
+                string[] dateParts = date.Split(Constants.DATESEPARATOR);
+                if (dateParts.Length == 3 && IsNumeric(dateParts))
+                    dateToSet = new DateTime(
+                        Convert.ToInt32(dateParts[0]), 
+                        Convert.ToInt32(dateParts[1]), 
+                        Convert.ToInt32(dateParts[2])
+                    );
             }
+            else
+                dateToSet = isStartDateNotEndDate ? DateTime.Now : DateTime.MaxValue;
+
+            return dateToSet;
+        }
+
+        private DateTime ParseTime(string time, bool isStartDateNotEndDate)
+        {
+            DateTime timeToSet = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(time) && time.Length == Constants.TIMELENGTH && time.Contains(Constants.TIMESEPARATOR.ToString()))
+            {
+                string[] timeParts = time.Split(Constants.TIMESEPARATOR);
+                if (timeParts.Length == 3 && IsNumeric(timeParts))
+                    timeToSet = new DateTime(
+                        Convert.ToInt32(timeParts[0]), 
+                        Convert.ToInt32(timeParts[1]), 
+                        Convert.ToInt32(timeParts[2])
+                    );
+            }
+            else
+                timeToSet = isStartDateNotEndDate ? DateTime.Now : DateTime.MaxValue;
+
+            return timeToSet;
         }
 
         internal void SetDaysOfWeek(string daysOfWeek)
