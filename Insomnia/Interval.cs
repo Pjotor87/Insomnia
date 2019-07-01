@@ -10,7 +10,7 @@ namespace Insomnia
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        private sealed class Constants
+        public sealed class Constants
         {
             public static int DateTimeLength { get { return DATELENGTH + TIMELENGTH + 1; } }
             public const int DATELENGTH = 10;

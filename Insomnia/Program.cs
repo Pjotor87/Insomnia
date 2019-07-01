@@ -94,7 +94,6 @@ namespace Insomnia
                 {
                     string argumentKey = (args[i].StartsWith("-")) ? args[i].Remove(0, 1).ToLower() : string.Empty;
                     if (string.IsNullOrEmpty(argumentKey) || 
-                        argumentKey.Length != 1 || 
                         args.Length == i)
                         continue;
                     else
@@ -103,11 +102,17 @@ namespace Insomnia
                         if (!string.IsNullOrEmpty(argumentValue))
                             switch (argumentKey)
                             {
-                                case "s": // Start date
+                                case "sd": // Start date
                                     interval.SetDateTime(argumentValue, true);
                                     break;
-                                case "e": // End date
+                                case "ed": // End date
                                     interval.SetDateTime(argumentValue, false);
+                                    break;
+                                case "st": // Start time
+                                    interval.SetDateTime(string.Concat(DateTime.Now.ToString("yyyy-MM-dd"), Interval.Constants.DATETIMESEPARATOR, argumentValue), true);
+                                    break;
+                                case "et": // End time
+                                    interval.SetDateTime(string.Concat(DateTime.Now.ToString("yyyy-MM-dd"), Interval.Constants.DATETIMESEPARATOR, argumentValue), false);
                                     break;
                                 case "d": // Days of week
                                     interval.SetDaysOfWeek(argumentValue);
