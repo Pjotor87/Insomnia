@@ -4,12 +4,10 @@ namespace Insomnia
 {
     /// <summary>
     /// The default behaviour of the program is to run indefinetly by instantiating this class and not doing anything else.
-    /// The properties of this class can however be overriden to make the proigram behave differently.
+    /// The properties of this class can however be overriden by command line arguments to make the program behave differently.
     /// </summary>
     public class Interval
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public sealed class Constants
         {
             public static int DateTimeLength { get { return DATELENGTH + TIMELENGTH + 1; } }
@@ -19,6 +17,9 @@ namespace Insomnia
             public const char TIMESEPARATOR = ':';
             public const char DATETIMESEPARATOR = ' ';
         }
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         /// <summary>
         /// Array which defines if the program should run only on specific days of the week.
         /// Ex. Set to {true,true,true,true,true,false,false} to only run on weekdays.
@@ -134,7 +135,7 @@ namespace Insomnia
             if (!string.IsNullOrEmpty(date) && date.Length == Constants.DATELENGTH && date.Contains(Constants.DATESEPARATOR.ToString()))
             {
                 string[] dateParts = date.Split(Constants.DATESEPARATOR);
-                if (dateParts.Length == 3 && IsNumeric(dateParts))
+                if (dateParts.Length == 3 && Utils.IsNumeric(dateParts))
                     dateToSet = new DateTime(
                         Convert.ToInt32(dateParts[0]), 
                         Convert.ToInt32(dateParts[1]), 
@@ -156,7 +157,7 @@ namespace Insomnia
             if (!string.IsNullOrEmpty(time) && time.Length == Constants.TIMELENGTH && time.Contains(Constants.TIMESEPARATOR.ToString()))
             {
                 string[] timeParts = time.Split(Constants.TIMESEPARATOR);
-                if (timeParts.Length == 3 && IsNumeric(timeParts))
+                if (timeParts.Length == 3 && Utils.IsNumeric(timeParts))
                     timeToSet = new DateTime(
                         DateTime.MinValue.Year,
                         DateTime.MinValue.Month,
@@ -174,14 +175,14 @@ namespace Insomnia
 
         internal void SetDaysOfWeek(string daysOfWeek)
         {
-            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && IsNumeric(daysOfWeek))
+            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && Utils.IsNumeric(daysOfWeek))
             {
                 bool[] daysOfWeekArr = new bool[7];
 
                 for (int i = 0; i < daysOfWeek.Length; i++)
                 {
                     int internalDayOfWeek = (i == 6) ? 0 : (i + 1);
-                    daysOfWeekArr[internalDayOfWeek] = (daysOfWeek[i] != '0');
+                    daysOfWeekArr[internalDayOfWeek] = daysOfWeek[i] != '0';
                 }
 
                 this.SetDaysOfWeek(daysOfWeekArr);
@@ -190,7 +191,7 @@ namespace Insomnia
 
         internal void SetIntervalInMilliseconds(string intervalInSeconds)
         {
-            if (this.IsNumeric(intervalInSeconds))
+            if (Utils.IsNumeric(intervalInSeconds))
             {
                 int intervalInSecondsAsInt = Convert.ToInt32(intervalInSeconds);
                 this.SetIntervalInMilliseconds(intervalInSecondsAsInt);
@@ -199,16 +200,16 @@ namespace Insomnia
 
         internal void SetPollForStopPoking(string timespanSeparatedByColon)
         {
-            if (timespanSeparatedByColon.Contains(":"))
+            if (timespanSeparatedByColon.Contains(Constants.TIMESEPARATOR.ToString()))
             {
-                string[] timespanParts = timespanSeparatedByColon.Split(':');
+                string[] timespanParts = timespanSeparatedByColon.Split(Constants.TIMESEPARATOR);
                 
                 int hour = -1;
                 int minutes = -1;
                 int seconds = -1;
                 if (timespanParts.Length == 3)
                     for (int i = 0; i < timespanParts.Length; i++)
-                        if (this.IsNumeric(timespanParts[i]))
+                        if (Utils.IsNumeric(timespanParts[i]))
                             if (i == 0)
                                 hour = Convert.ToInt32(timespanParts[i]);
                             else if (i == 1)
@@ -222,19 +223,5 @@ namespace Insomnia
         }
 
         #endregion
-
-        private bool IsNumeric(string str)
-        {
-            int temp;
-            return int.TryParse(str, out temp);
-        }
-
-        private bool IsNumeric(string[] strArr)
-        {
-            for (int i = 0; i < strArr.Length; i++)
-                if (!IsNumeric(strArr[i]))
-                    return false;
-            return true;
-        }
     }
 }
