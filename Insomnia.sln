@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.705
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insomnia", "Insomnia\Insomnia.csproj", "{347DCB4E-5B0C-4662-88BA-55E7989E814A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{242BE24F-5798-45A5-B08E-501C2DC24BF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{347DCB4E-5B0C-4662-88BA-55E7989E814A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{347DCB4E-5B0C-4662-88BA-55E7989E814A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{347DCB4E-5B0C-4662-88BA-55E7989E814A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242BE24F-5798-45A5-B08E-501C2DC24BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242BE24F-5798-45A5-B08E-501C2DC24BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242BE24F-5798-45A5-B08E-501C2DC24BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242BE24F-5798-45A5-B08E-501C2DC24BF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,3 +9,9 @@ C:\CODE\Insomnia\Insomnia\obj\Release\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\obj\Release\Insomnia.pdb
 C:\CODE\Insomnia\Insomnia\bin\Release\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\bin\Release\Insomnia.pdb
+C:\C\Insomnia\Insomnia\obj\Release\Insomnia.csproj.CoreCompileInputs.cache
+C:\C\Insomnia\Insomnia\obj\Release\Insomnia.exe
+C:\C\Insomnia\Insomnia\obj\Release\Insomnia.pdb
+C:\C\Insomnia\Insomnia\bin\Release\Insomnia.exe.config
+C:\C\Insomnia\Insomnia\bin\Release\Insomnia.exe
+C:\C\Insomnia\Insomnia\bin\Release\Insomnia.pdb

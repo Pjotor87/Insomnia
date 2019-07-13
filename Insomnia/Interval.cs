@@ -175,7 +175,7 @@ namespace Insomnia
 
         internal void SetDaysOfWeek(string daysOfWeek)
         {
-            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && Utils.IsNumeric(daysOfWeek))
+            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && Utils.IsNumeric(daysOfWeek, false))
             {
                 bool[] daysOfWeekArr = new bool[7];
 
@@ -191,7 +191,7 @@ namespace Insomnia
 
         internal void SetIntervalInMilliseconds(string intervalInSeconds)
         {
-            if (Utils.IsNumeric(intervalInSeconds))
+            if (Utils.IsNumeric(intervalInSeconds, false))
             {
                 int intervalInSecondsAsInt = Convert.ToInt32(intervalInSeconds);
                 this.SetIntervalInMilliseconds(intervalInSecondsAsInt);
@@ -209,7 +209,7 @@ namespace Insomnia
                 int seconds = -1;
                 if (timespanParts.Length == 3)
                     for (int i = 0; i < timespanParts.Length; i++)
-                        if (Utils.IsNumeric(timespanParts[i]))
+                        if (Utils.IsNumeric(timespanParts[i], false))
                             if (i == 0)
                                 hour = Convert.ToInt32(timespanParts[i]);
                             else if (i == 1)

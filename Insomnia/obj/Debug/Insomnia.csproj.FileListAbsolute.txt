@@ -9,3 +9,10 @@ C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\obj\Debug\Insomnia.pdb
 C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.exe
 C:\CODE\Insomnia\Insomnia\bin\Debug\Insomnia.pdb
+C:\C\Insomnia\Insomnia\bin\Debug\Insomnia.exe.config
+C:\C\Insomnia\Insomnia\bin\Debug\Insomnia.exe
+C:\C\Insomnia\Insomnia\bin\Debug\Insomnia.pdb
+C:\C\Insomnia\Insomnia\obj\Debug\Insomnia.csprojAssemblyReference.cache
+C:\C\Insomnia\Insomnia\obj\Debug\Insomnia.csproj.CoreCompileInputs.cache
+C:\C\Insomnia\Insomnia\obj\Debug\Insomnia.exe
+C:\C\Insomnia\Insomnia\obj\Debug\Insomnia.pdb

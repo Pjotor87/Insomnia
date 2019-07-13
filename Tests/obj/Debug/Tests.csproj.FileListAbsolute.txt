@@ -1,0 +1,17 @@
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\C\Insomnia\Tests\bin\Debug\Tests.dll
+C:\C\Insomnia\Tests\bin\Debug\Tests.pdb
+C:\C\Insomnia\Tests\bin\Debug\Insomnia.exe
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\C\Insomnia\Tests\bin\Debug\Insomnia.pdb
+C:\C\Insomnia\Tests\bin\Debug\Insomnia.exe.config
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\C\Insomnia\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\C\Insomnia\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\C\Insomnia\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\C\Insomnia\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\C\Insomnia\Tests\obj\Debug\Tests.dll
+C:\C\Insomnia\Tests\obj\Debug\Tests.pdb
