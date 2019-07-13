@@ -47,6 +47,13 @@ namespace Insomnia
 
         #endregion
 
+        #region Configuration
+
+        private static string KeyPressWhenPokingSystem = "{F15}";
+        private static bool PokeSystemUsingKeypressNotMouseWiggle = true;
+
+        #endregion
+
         static void Main(string[] args)
         {
             // Get currently running Insomnia processes.
@@ -59,7 +66,7 @@ namespace Insomnia
             // poking of the device to the lowest value found.
             interval.SetIntervalInMilliseconds(GetLowestTimeoutValueFromSystem());
             // Disable the system from going to sleep and locking by manipulating thread execution state 
-            // and continously poking the system using simulated keypresses and/or wiggling the mouse back and forth.
+            // and continously poking the system using keypresses and/or wiggling the mouse back and forth.
             KeepSystemAlive(interval);
         }
 
@@ -109,10 +116,10 @@ namespace Insomnia
                                     interval.SetDateTime(argumentValue, false);
                                     break;
                                 case "st": // Start time
-                                    interval.SetDateTime(string.Concat(DateTime.Now.ToString("yyyy-MM-dd"), Interval.Constants.DATETIMESEPARATOR, argumentValue), true);
+                                    interval.SetTime(argumentValue, true);
                                     break;
                                 case "et": // End time
-                                    interval.SetDateTime(string.Concat(DateTime.Now.ToString("yyyy-MM-dd"), Interval.Constants.DATETIMESEPARATOR, argumentValue), false);
+                                    interval.SetTime(argumentValue, false);
                                     break;
                                 case "d": // Days of week
                                     interval.SetDaysOfWeek(argumentValue);
@@ -122,6 +129,12 @@ namespace Insomnia
                                     break;
                                 case "p": // Poll for stop poking
                                     interval.SetPollForStopPoking(argumentValue);
+                                    break;
+                                case "sp": // Set poke configuration true/false
+                                    PokeSystemUsingKeypressNotMouseWiggle = bool.Parse(argumentValue);
+                                    break;
+                                case "sk": // Set key press
+                                    KeyPressWhenPokingSystem = argumentValue;
                                     break;
                                 default:
                                     break;
@@ -165,7 +178,7 @@ namespace Insomnia
 
         private static void KeepSystemAlive(Interval interval)
         {
-            // Prevent system from going turning off display or going to sleep
+            // Prevent system from turning off display or going to sleep
             SetThreadExecutionState(
                 EXECUTION_STATE.ES_DISPLAY_REQUIRED | 
                 EXECUTION_STATE.ES_SYSTEM_REQUIRED | 
@@ -173,9 +186,9 @@ namespace Insomnia
             );
 
             // Initiate a timer that pokes the device at a given interval.
-            System.Threading.Timer pokeDeviceTimer = 
+            System.Threading.Timer pokeDeviceTimer =
                 new System.Threading.Timer(
-                    new TimerCallback(PokeDevice),
+                    new TimerCallback(GetCallbackToRunBeforeSystemGoesToSleep()),
                     null,
                     0,
                     interval.IntervalInMilliseconds
@@ -188,20 +201,31 @@ namespace Insomnia
             // Release resources.
             pokeDeviceTimer.Dispose();
         }
-        
+
+        private static TimerCallback GetCallbackToRunBeforeSystemGoesToSleep()
+        {
+            return
+                PokeSystemUsingKeypressNotMouseWiggle ?
+                new TimerCallback(PokeDeviceByGrabbingWindowAndSendingKeyPress) :
+                new TimerCallback(PokeDeviceByWigglingMouseBackAndForth);
+        }
+
         private static bool ShouldKeepAlive(Interval interval)
         {
             return
                 interval.StartDate <= DateTime.Now && 
                 interval.EndDate > DateTime.Now &&
-                interval.DaysOfWeek[(int)(DateTime.Now.DayOfWeek)]
-                ;
+                interval.DaysOfWeek[(int)(DateTime.Now.DayOfWeek)];
         }
 
-        private static void PokeDevice(object state)
+        private static void PokeDeviceByGrabbingWindowAndSendingKeyPress(object state)
         {
-            GrabWindowAndSendKeypress("SysListView32", "FolderView", "{F15}");
-            //WiggleMouseAPixelBackAndForth();
+            GrabWindowAndSendKeypress("SysListView32", "FolderView", KeyPressWhenPokingSystem);
+        }
+
+        private static void PokeDeviceByWigglingMouseBackAndForth(object state)
+        {
+            WiggleMouseAPixelBackAndForth();
         }
 
         private static void GrabWindowAndSendKeypress(string lpClassName, string lpWindowName, string keys)

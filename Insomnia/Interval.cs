@@ -82,21 +82,33 @@ namespace Insomnia
 
         #region Set from args
 
+        public void SetTime(string time, bool isStartDateNotEndDate)
+        {
+            this.SetDateTime(
+                string.Concat(
+                    DateTime.Now.ToString("yyyy-MM-dd"), 
+                    Constants.DATETIMESEPARATOR, 
+                    time
+                ), 
+                isStartDateNotEndDate
+            );
+        }
+
         public void SetDateTime(string dateTime, bool isStartDateNotEndDate)
         {
             if (!string.IsNullOrEmpty(dateTime) && dateTime.Contains(Constants.DATETIMESEPARATOR.ToString()) && dateTime.Length == Constants.DateTimeLength)
                 if (isStartDateNotEndDate)
                     this.SetStart(
                         ParseDateTime(
-                            dateTime.Split(Constants.DATESEPARATOR)[0], 
-                            dateTime.Split(Constants.DATESEPARATOR)[1], 
+                            dateTime.Split(Constants.DATETIMESEPARATOR)[0], 
+                            dateTime.Split(Constants.DATETIMESEPARATOR)[1], 
                             isStartDateNotEndDate)
                         );
                 else
                     this.SetEnd(
                         ParseDateTime(
-                            dateTime.Split(Constants.DATESEPARATOR)[0], 
-                            dateTime.Split(Constants.DATESEPARATOR)[1], 
+                            dateTime.Split(Constants.DATETIMESEPARATOR)[0], 
+                            dateTime.Split(Constants.DATETIMESEPARATOR)[1], 
                             isStartDateNotEndDate)
                         );
         }
@@ -126,7 +138,10 @@ namespace Insomnia
                     dateToSet = new DateTime(
                         Convert.ToInt32(dateParts[0]), 
                         Convert.ToInt32(dateParts[1]), 
-                        Convert.ToInt32(dateParts[2])
+                        Convert.ToInt32(dateParts[2]),
+                        DateTime.MinValue.Hour,
+                        DateTime.MinValue.Minute,
+                        DateTime.MinValue.Second
                     );
             }
             else
@@ -143,6 +158,9 @@ namespace Insomnia
                 string[] timeParts = time.Split(Constants.TIMESEPARATOR);
                 if (timeParts.Length == 3 && IsNumeric(timeParts))
                     timeToSet = new DateTime(
+                        DateTime.MinValue.Year,
+                        DateTime.MinValue.Month,
+                        DateTime.MinValue.Day,
                         Convert.ToInt32(timeParts[0]), 
                         Convert.ToInt32(timeParts[1]), 
                         Convert.ToInt32(timeParts[2])
