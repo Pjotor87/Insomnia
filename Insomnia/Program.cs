@@ -94,54 +94,42 @@ namespace Insomnia
         {
             Interval interval = new Interval();
 
-            if (args != null && args.Length >= 1)
-            {
-                // Get Arguments and set properties on interval object.
-                for (int i = 0; i < args.Length; i++)
-                {
-                    string argumentKey = (args[i].StartsWith("-")) ? args[i].Remove(0, 1).ToLower() : string.Empty;
-                    if (string.IsNullOrEmpty(argumentKey) || 
-                        args.Length == i)
-                        continue;
-                    else
+            IList<KeyValuePair<string, string>> parsedCommandLineArgs = Utils.ParseCommandlineArgs(args);
+
+            if (parsedCommandLineArgs != null && parsedCommandLineArgs.Count > 0)
+                foreach (KeyValuePair<string, string> commandLineArg in parsedCommandLineArgs)
+                    switch (commandLineArg.Key)
                     {
-                        string argumentValue = (args.Length >= (i + 1)) ? args[i + 1] : string.Empty;
-                        if (!string.IsNullOrEmpty(argumentValue))
-                            switch (argumentKey)
-                            {
-                                case "sd": // Start date
-                                    interval.SetDateTime(argumentValue, true);
-                                    break;
-                                case "ed": // End date
-                                    interval.SetDateTime(argumentValue, false);
-                                    break;
-                                case "st": // Start time
-                                    interval.SetTime(argumentValue, true);
-                                    break;
-                                case "et": // End time
-                                    interval.SetTime(argumentValue, false);
-                                    break;
-                                case "d": // Days of week
-                                    interval.SetDaysOfWeek(argumentValue);
-                                    break;
-                                case "i": // Interval
-                                    interval.SetIntervalInMilliseconds(argumentValue);
-                                    break;
-                                case "p": // Poll for stop poking
-                                    interval.SetPollForStopPoking(argumentValue);
-                                    break;
-                                case "sp": // Set poke configuration true/false
-                                    PokeSystemUsingKeypressNotMouseWiggle = bool.Parse(argumentValue);
-                                    break;
-                                case "sk": // Set key press
-                                    KeyPressWhenPokingSystem = argumentValue;
-                                    break;
-                                default:
-                                    break;
-                            }
+                        case "sd": // Start date
+                            interval.SetDateTime(commandLineArg.Value, true);
+                            break;
+                        case "ed": // End date
+                            interval.SetDateTime(commandLineArg.Value, false);
+                            break;
+                        case "st": // Start time
+                            interval.SetTime(commandLineArg.Value, true);
+                            break;
+                        case "et": // End time
+                            interval.SetTime(commandLineArg.Value, false);
+                            break;
+                        case "d": // Days of week
+                            interval.SetDaysOfWeek(commandLineArg.Value);
+                            break;
+                        case "i": // Interval
+                            interval.SetIntervalInMilliseconds(commandLineArg.Value);
+                            break;
+                        case "p": // Poll for stop poking
+                            interval.SetPollForStopPoking(commandLineArg.Value);
+                            break;
+                        case "sp": // Set poke configuration true/false
+                            PokeSystemUsingKeypressNotMouseWiggle = bool.Parse(commandLineArg.Value);
+                            break;
+                        case "sk": // Set key press
+                            KeyPressWhenPokingSystem = commandLineArg.Value;
+                            break;
+                        default:
+                            break;
                     }
-                }
-            }
 
             return interval;
         }
