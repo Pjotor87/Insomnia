@@ -94,7 +94,7 @@ namespace Insomnia
         {
             Interval interval = new Interval();
 
-            IList<KeyValuePair<string, string>> parsedCommandLineArgs = Utils.ParseCommandlineArgs(args);
+            IList<KeyValuePair<string, string>> parsedCommandLineArgs = Helpers.CommandLineArgumentHelper.ParseCommandlineArgs(args);
 
             if (parsedCommandLineArgs != null && parsedCommandLineArgs.Count > 0)
                 foreach (KeyValuePair<string, string> commandLineArg in parsedCommandLineArgs)

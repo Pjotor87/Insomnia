@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
-namespace Insomnia
+namespace Insomnia.Helpers
 {
-    public static class Utils
+    public static class IsNumericHelper
     {
         public static bool IsInt(string str)
         {
@@ -19,19 +17,15 @@ namespace Insomnia
             for (int i = 0; i < str.Length;)
             {
                 int lengthOfNextSubstring = i + substringLength;
-
                 if (lengthOfNextSubstring > str.Length)
-                {
                     substringLength = str.Length - i;
-                }
 
-                string subString = str.Substring(i, substringLength);
-
-                if (!IsInt(subString))
+                if (!IsInt(str.Substring(i, substringLength)))
                     return false;
 
                 i += lengthOfNextSubstring;
             }
+
             return true;
         }
 
@@ -71,43 +65,8 @@ namespace Insomnia
                     if (!IsInt(strArr[i]))
                         return false;
             }
-            
+
             return true;
-        }
-
-        public static IList<KeyValuePair<string, string>> ParseCommandlineArgs(string[] args)
-        {
-            return ParseCommandlineArgs(args, "-");
-        }
-
-        public static IList<KeyValuePair<string, string>> ParseCommandlineArgs(string[] args, string argKeyStartsWith)
-        {
-            IList<KeyValuePair<string, string>> parsedCommandlineArgs = new List<KeyValuePair<string, string>>();
-
-            if (args != null && args.Length >= 1)
-                for (int i = 0; i < args.Length; i++)
-                {
-                    string argumentKey = 
-                        args[i].StartsWith(argKeyStartsWith) ? 
-                        args[i].Remove(0, argKeyStartsWith.Length).ToLower() : 
-                        string.Empty;
-
-                    if (string.IsNullOrEmpty(argumentKey) ||
-                        args.Length == i)
-                        continue;
-                    else
-                    {
-                        string argumentValue = 
-                            (args.Length >= (i + 1)) ? 
-                            args[i + 1] : 
-                            string.Empty;
-
-                        if (!string.IsNullOrEmpty(argumentValue))
-                            parsedCommandlineArgs.Add(new KeyValuePair<string, string>(argumentKey, argumentValue));
-                    }
-                }
-
-            return parsedCommandlineArgs;
         }
     }
 }

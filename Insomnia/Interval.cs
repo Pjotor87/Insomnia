@@ -135,7 +135,7 @@ namespace Insomnia
             if (!string.IsNullOrEmpty(date) && date.Length == Constants.DATELENGTH && date.Contains(Constants.DATESEPARATOR.ToString()))
             {
                 string[] dateParts = date.Split(Constants.DATESEPARATOR);
-                if (dateParts.Length == 3 && Utils.IsNumeric(dateParts))
+                if (dateParts.Length == 3 && Helpers.IsNumericHelper.IsNumeric(dateParts))
                     dateToSet = new DateTime(
                         Convert.ToInt32(dateParts[0]), 
                         Convert.ToInt32(dateParts[1]), 
@@ -157,7 +157,7 @@ namespace Insomnia
             if (!string.IsNullOrEmpty(time) && time.Length == Constants.TIMELENGTH && time.Contains(Constants.TIMESEPARATOR.ToString()))
             {
                 string[] timeParts = time.Split(Constants.TIMESEPARATOR);
-                if (timeParts.Length == 3 && Utils.IsNumeric(timeParts))
+                if (timeParts.Length == 3 && Helpers.IsNumericHelper.IsNumeric(timeParts))
                     timeToSet = new DateTime(
                         DateTime.MinValue.Year,
                         DateTime.MinValue.Month,
@@ -175,7 +175,7 @@ namespace Insomnia
 
         internal void SetDaysOfWeek(string daysOfWeek)
         {
-            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && Utils.IsNumeric(daysOfWeek, false))
+            if (!string.IsNullOrEmpty(daysOfWeek) && daysOfWeek.Length == 7 && Helpers.IsNumericHelper.IsNumeric(daysOfWeek, false))
             {
                 bool[] daysOfWeekArr = new bool[7];
 
@@ -191,7 +191,7 @@ namespace Insomnia
 
         internal void SetIntervalInMilliseconds(string intervalInSeconds)
         {
-            if (Utils.IsNumeric(intervalInSeconds, false))
+            if (Helpers.IsNumericHelper.IsNumeric(intervalInSeconds, false))
             {
                 int intervalInSecondsAsInt = Convert.ToInt32(intervalInSeconds);
                 this.SetIntervalInMilliseconds(intervalInSecondsAsInt);
@@ -209,7 +209,7 @@ namespace Insomnia
                 int seconds = -1;
                 if (timespanParts.Length == 3)
                     for (int i = 0; i < timespanParts.Length; i++)
-                        if (Utils.IsNumeric(timespanParts[i], false))
+                        if (Helpers.IsNumericHelper.IsNumeric(timespanParts[i], false))
                             if (i == 0)
                                 hour = Convert.ToInt32(timespanParts[i]);
                             else if (i == 1)
